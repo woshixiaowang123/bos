@@ -155,7 +155,7 @@
 			border : true,
 			rownumbers : true,
 			striped : true,
-			pageList: [30,50,100],
+			pageList: [3,5,10],
 			pagination : true,
 			toolbar : toolbar,
 			url :  "",
@@ -165,6 +165,10 @@
 			onAfterEdit : function(rowIndex, rowData, changes){
 				console.info(rowData);
 				editIndex = undefined;
+				var url="${pageContext.request.contextPath}/workordermanageAction_save.action";
+				$.post(url,rowData,function (date) {
+
+                })
 			}
 		});
 	});

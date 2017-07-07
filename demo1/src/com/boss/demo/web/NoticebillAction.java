@@ -2,7 +2,10 @@ package com.boss.demo.web;
 
 import cn.itcast.crm.domain.Customer;
 import com.boss.demo.domain.NoticebillModel;
+import com.boss.demo.domain.UserModel;
+import com.boss.demo.utils.BosGetSession;
 import com.boss.demo.web.BaseAction.BaseAction;
+import org.apache.struts2.ServletActionContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -26,8 +29,23 @@ public class NoticebillAction extends BaseAction<NoticebillModel> {
     public String findByPhone(){
         Customer customer = customerService.findCustomerByPhone(phone);
         //把返回的Customer对象回写到页面
-        this.writeObjToJson(customer,new String[]{"decidedzone_id"});
+        this.writeObjToJson(customer,new String[]{});
 
         return NONE;
+    }
+
+    //添加业务受理单的方法
+    private String decidedzone_id;
+
+    public void setDecidedzone_id(String decidedzone_id) {
+        this.decidedzone_id = decidedzone_id;
+    }
+
+    public String save(){
+        UserModel loginUser = BosGetSession.getLoginUser();
+       // ServletActionContext.getRequest().getSession().getAttribute("");
+        model.setUser(loginUser);
+        noticebillService.save(model,decidedzone_id);
+        return "toAdd";
     }
 }

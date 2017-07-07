@@ -204,4 +204,27 @@ public class NoticebillModel {
     public void setWorkbills(Set<WorkbillModel> workbills) {
         this.workbills = workbills;
     }
+
+    @Override
+    public String toString() {
+        return "NoticebillModel{" +
+                "id='" + id + '\'' +
+                ", customerId='" + customerId + '\'' +
+                ", customerName='" + customerName + '\'' +
+                ", delegater='" + delegater + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", pickaddress='" + pickaddress + '\'' +
+                ", arrivecity='" + arrivecity + '\'' +
+                ", product='" + product + '\'' +
+                ", pickdate=" + pickdate +
+                ", num=" + num +
+                ", weight=" + weight +
+                ", volume='" + volume + '\'' +
+                ", remark='" + remark + '\'' +
+                ", ordertype='" + ordertype + '\'' +
+                ", staff=" + staff +
+                ", user=" + user +
+                ", workbills=" + workbills +
+                '}';
+    }
 }

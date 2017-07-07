@@ -59,6 +59,9 @@ public class BaseAction<T> extends ActionSupport implements ModelDriven<T> {
     @Autowired
     protected CustomerService customerService;
 
+    @Autowired
+    protected  NoticebillService noticebillService;
+
     @Resource
     protected  UserService userService;
     //在这里必须初始化该模型类,就要通过dao层相似的方法获得泛型的类型,再初始化

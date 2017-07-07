@@ -75,6 +75,8 @@
                                         $("input[name=customerName]").val(data.name);
                                         $("input[name=delegater]").val(data.name);
                                         $("input[name=pickaddress]").val(data.address);
+                                        $("input[name=decidedzone_id]").val(data.decidedzone_id);
+
 									}else{
                                         $("input[name=customerId]").val("");
                                         $("input[name=customerName]").val("");
@@ -96,7 +98,9 @@
 				<tr>
 					<td>客户姓名:</td>
 					<td><input type="text" class="easyui-validatebox" name="customerName"
-						required="true" /></td>
+						required="true" />
+					<input type="hidden" name="decidedzone_id">
+					</td>
 					<td>联系人:</td>
 					<td><input type="text" class="easyui-validatebox" name="delegater"
 						required="true" /></td>

@@ -40,10 +40,6 @@ public class UserAction extends BaseAction<UserModel> {
 
     //用户登录的方法
     public String login() {
-        
-
-
-
         String values = (String) ServletActionContext.getRequest().getSession().getAttribute("key");
         if (StringUtils.isBlank(checkcode) || !checkcode.equals(values)) {
             //判断输入的验证码是否为空或者输入的值与生成的值不一致

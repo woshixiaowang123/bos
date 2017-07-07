@@ -6,7 +6,8 @@
 
     <class name="com.boss.demo.domain.NoticebillModel" table="qp_noticebill" schema="bos">
         <id name="id">
-            <column name="id" sql-type="varchar(32)" length="32" not-null="true"/>
+            <column name="id" sql-type="varchar(32)" length="32" not-null="true" />
+            <generator class="uuid"></generator>
         </id>
         <property name="customerId">
             <column name="customer_id" sql-type="varchar(32)" length="32" />

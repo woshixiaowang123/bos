@@ -65,7 +65,7 @@
 
 		<!--noticebillAction-->
 		<action name="noticebillAction_*" class="noticebillAction" method="{1}">
-
+			<result name="toAdd">/WEB-INF/pages/qupai/noticebill_add.jsp</result>
 		</action>
 	</package>
 
