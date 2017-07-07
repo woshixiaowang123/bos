@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+
+
+
+
+	<!--首先配置此Struts是否是模型类-->
+	<constant name="struts.devMode" value="true"></constant>
+	<!--指定Struts2框架中的action对象有Spring工厂负责创建-->
+	<constant name="struts.objectFactory" value="spring"/>
+	<!-- 注册struts2框架的国际化文件 -->
+	<constant name="struts.custom.i18n.resources" value="message"></constant>
+
+	<!--配置action-->
+	<package name="basicstruts" extends="struts-default" namespace="/">
+		<!--自定义拦截器-->
+		<interceptors>
+
+			<interceptor name="logout" class="com.boss.demo.web.interceptor.logoutInterceptor">
+				<param name="excludeMethods">login</param>
+			</interceptor>
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="logout"></interceptor-ref>
+				<interceptor-ref name="defaultStack"/>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="myStack"></default-interceptor-ref>
+		<global-results>
+			<result name="toLogin">/login.jsp</result>
+		</global-results>
+
+		<!--UserAction-->
+		<action name="userAction_*" class="userAction" method="{1}">
+			<result name="toLogin">/login.jsp</result>
+			<result name="home">/WEB-INF/pages/common/index.jsp</result>
+
+		</action>
+
+		<!--单纯的页面跳转的action-->
+		<action name="page_*_*">
+			<result type="dispatcher">/WEB-INF/pages/{1}/{2}.jsp</result>
+		</action>
+
+		<!--staffAction-->
+		<action name="staffAction_*" class="staffAction" method="{1}">
+			<result name="toList">/WEB-INF/pages/base/staff.jsp</result>
+		</action>
+
+		<!--regionAction-->
+		<action name="regionAction_*" class="regionAction" method="{1}">
+			<result name="toList">/WEB-INF/pages/base/region.jsp</result>
+		</action>
+
+		<!--subareaAction-->
+		<action name="subareaAction_*" class="subareaAction" method="{1}">
+			<result name="toList">/WEB-INF/pages/base/subarea.jsp</result>
+		</action>
+		<!--decidedzoneAction-->
+		<action name="decidedzoneAction_*" class="decidedzoneAction" method="{1}">
+			<result name="toList">/WEB-INF/pages/base/decidedzone.jsp</result>
+		</action>
+
+		<!--noticebillAction-->
+		<action name="noticebillAction_*" class="noticebillAction" method="{1}">
+
+		</action>
+	</package>
+
+</struts>

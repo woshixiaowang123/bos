@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.boss.demo.domain.RegionModel" table="bc_region" schema="bos">
+        <id name="id">
+            <column name="id" sql-type="varchar(32)" length="32"/>
+        </id>
+        <property name="province">
+            <column name="province" sql-type="varchar(50)" length="50" not-null="false"/>
+        </property>
+        <property name="city">
+            <column name="city" sql-type="varchar(50)" length="50" not-null="true"/>
+        </property>
+        <property name="district">
+            <column name="district" sql-type="varchar(50)" length="50" not-null="false"/>
+        </property>
+        <property name="postcode">
+            <column name="postcode" sql-type="varchar(50)" length="50" not-null="false"/>
+        </property>
+        <property name="shortcode">
+            <column name="shortcode" sql-type="varchar(30)" length="30" not-null="false"/>
+        </property>
+        <property name="citycode">
+            <column name="citycode" sql-type="varchar(30)" length="30" not-null="false"/>
+        </property>
+        <set name="Subareas" inverse="true">
+            <key>
+                <column name="region_id" not-null="false"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.boss.demo.domain.SubareaModel"/>
+        </set>
+    </class>
+</hibernate-mapping>

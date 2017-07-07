@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.boss.demo.domain.StaffModel" table="bc_staff" schema="bos">
+        <id name="id">
+
+        </id>
+        <property name="name"/>
+
+        <property name="telephone">
+        </property>
+        <property name="haspda">
+        </property>
+        <property name="deltag">
+        </property>
+        <property name="station">
+        </property>
+        <property name="standard">
+        </property>
+        <set name="Decidedzones" inverse="true">
+            <key>
+                <column name="staff_id" not-null="false"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.boss.demo.domain.DecidedzoneModel"/>
+        </set>
+    </class>
+
+</hibernate-mapping>

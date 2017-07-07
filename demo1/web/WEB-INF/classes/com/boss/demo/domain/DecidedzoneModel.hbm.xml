@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.boss.demo.domain.DecidedzoneModel" table="bc_decidedzone" schema="bos">
+        <id name="id">
+            <column name="id" sql-type="varchar(32)" length="32"/>
+        </id>
+        <property name="name">
+            <column name="name" sql-type="varchar(30)" length="30" not-null="false"/>
+        </property>
+        <many-to-one name="Staff" lazy="false" class="com.boss.demo.domain.StaffModel">
+            <column name="staff_id" not-null="false"/>
+        </many-to-one>
+        <set name="Subareas" inverse="true">
+            <key>
+                <column name="decidedzone_id" not-null="false"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.boss.demo.domain.SubareaModel"/>
+        </set>
+    </class>
+</hibernate-mapping>

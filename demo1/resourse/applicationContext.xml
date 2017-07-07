@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/context
+						http://www.springframework.org/schema/context/spring-context.xsd
+						http://www.springframework.org/schema/aop
+						http://www.springframework.org/schema/aop/spring-aop.xsd
+						http://www.springframework.org/schema/tx 
+						http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<context:component-scan base-package="*"/>
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	<!--事务管理-->
+
+
+
+	<!--注入sessionfactory-->
+	<bean name="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="format_sql">true</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+		<!--注入hbm配置文件-->
+		<!-- 注入hbm映射文件 -->
+		<property name="mappingDirectoryLocations">
+			<list>
+				<value>classpath:com/boss/demo/domain</value>
+			</list>
+		</property>
+	</bean>
+	<!--加载jdbc配置文件-->
+	<context:property-placeholder location="classpath:jdbc.properties"></context:property-placeholder>
+	<!--首先配置datasourse-->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.DriverManagerDataSource">
+		<property name="jdbcUrl" value="${jdbcUrl}"/>
+		<property name="password" value="${password}"/>
+		<property name="user" value="${user}"/>
+		<property name="driverClass" value="${driverClass}"/>
+	</bean>
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- 配置远程服务的代理对象 -->
+	<bean id="customerService" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+		<!-- 注入接口类型 -->
+		<property name="serviceInterface" value="cn.itcast.crm.service.CustomerService"/>
+		<!-- 组人服务的url地址 -->
+		<property name="serviceUrl" value="http://localhost:8080/crm/remoting/customer"/>
+	</bean>
+
+
+	<!-- 配置shiro的bean， 使用当前工厂bean对象创建过滤器用于进行权限控制-->
+	<bean id="shiroFileter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<!-- 注入安全管理器对象 -->
+		<property name="securityManager" ref="securityManager"></property>
+		<!-- 登录页面url地址 -->
+		<property name="loginUrl" value="/login.jsp"></property>
+		<!-- 成功页面 -->
+		<property name="successUrl" value="/index.jsp"></property>
+		<!-- 权限不足提示页面 -->
+		<property name="unauthorizedUrl" value="/unauthorized.jsp"></property>
+		<!-- 基于url拦截，使用过滤器进行拦截 -->
+		<property name="filterChainDefinitions">
+			<value>
+				/css/** = anon
+				/images/** = anon
+				/js/** = anon
+				/validatecode.jsp* = anon
+				/login.jsp = anon
+				/userAction_login.action = anon
+				/page_base_staff.action = perms["staff"]
+				/** = authc
+			</value>
+		</property>
+	</bean>
+
+	<!-- 配置安全管理器 -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="bosRealm"></property>
+		<!-- 注入缓存管理器 -->
+		<!--<property name="cacheManager" ref="cacheManager"></property>-->
+	</bean>
+	<!--配置自定义的realm-->
+	<bean name="bosRealm" class="com.boss.demo.shiro.BosRealm"></bean>
+
+	<!--如果要使用注解来配置shiro的话,需要先配置自动代理与切面-->
+	<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator">
+		<property name="proxyTargetClass" value="true"></property>
+	</bean>
+	<!--切面-->
+	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor"></bean>
+
+</beans>

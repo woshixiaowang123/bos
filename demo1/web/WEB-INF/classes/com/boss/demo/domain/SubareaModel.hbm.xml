@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.boss.demo.domain.SubareaModel" table="bc_subarea" schema="bos">
+        <id name="id">
+        </id>
+        <property name="addresskey">
+            <column name="addresskey" sql-type="varchar(100)" length="100" not-null="false"/>
+        </property>
+        <property name="startnum">
+            <column name="startnum" sql-type="varchar(30)" length="30" not-null="false"/>
+        </property>
+        <property name="endnum">
+            <column name="endnum" sql-type="varchar(30)" length="30" not-null="false"/>
+        </property>
+        <property name="single">
+            <column name="single" sql-type="char(1)" length="1" not-null="false"/>
+        </property>
+        <property name="position">
+            <column name="position" sql-type="varchar(255)" not-null="false"/>
+        </property>
+        <many-to-one name="Decidedzone" class="com.boss.demo.domain.DecidedzoneModel">
+            <column name="decidedzone_id" not-null="false"/>
+        </many-to-one>
+        <many-to-one name="Region" class="com.boss.demo.domain.RegionModel" lazy="false">
+            <column name="region_id" not-null="false"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>
