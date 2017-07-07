@@ -42,6 +42,7 @@ public class BaseDaoImp<T> extends HibernateDaoSupport implements BaseDao<T> {
 
     @Override
     public void save(Object entity) {
+        System.out.println("dao执行了");
         this.getHibernateTemplate().save(entity);
 
     }

@@ -233,4 +233,29 @@ public class WorkordermanageModel {
         result = 31 * result + (updatetime != null ? updatetime.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "WorkordermanageModel{" +
+                "id='" + id + '\'' +
+                ", arrivecity='" + arrivecity + '\'' +
+                ", product='" + product + '\'' +
+                ", num=" + num +
+                ", weight=" + weight +
+                ", floadreqr='" + floadreqr + '\'' +
+                ", prodtimelimit='" + prodtimelimit + '\'' +
+                ", prodtype='" + prodtype + '\'' +
+                ", sendername='" + sendername + '\'' +
+                ", senderphone='" + senderphone + '\'' +
+                ", senderaddr='" + senderaddr + '\'' +
+                ", receivername='" + receivername + '\'' +
+                ", receiverphone='" + receiverphone + '\'' +
+                ", receiveraddr='" + receiveraddr + '\'' +
+                ", feeitemnum=" + feeitemnum +
+                ", actlweit=" + actlweit +
+                ", vol='" + vol + '\'' +
+                ", managerCheck='" + managerCheck + '\'' +
+                ", updatetime=" + updatetime +
+                '}';
+    }
 }

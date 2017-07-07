@@ -7,7 +7,6 @@
     <class name="com.boss.demo.domain.WorkordermanageModel" table="qp_workordermanage" schema="bos">
         <id name="id">
             <column name="id" sql-type="varchar(32)" length="32"/>
-            <generator class="assigned"/>
         </id>
         <property name="arrivecity">
             <column name="arrivecity" sql-type="varchar(20)" length="20" />

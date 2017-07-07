@@ -158,7 +158,7 @@
 			pageList: [3,5,10],
 			pagination : true,
 			toolbar : toolbar,
-			url :  "",
+			url :  "workordermanageAction_findAll.action",
 			idField : 'id',
 			columns : columns,
 			onDblClickRow : doDblClickRow,
@@ -167,7 +167,11 @@
 				editIndex = undefined;
 				var url="${pageContext.request.contextPath}/workordermanageAction_save.action";
 				$.post(url,rowData,function (date) {
-
+					if(date=="1"){
+					    $.messager.alert("提示信息","工作单录入成功!","info");
+					}else{
+					    $.messager.alert("提示信息","工作单录入失败!","warning");
+					}
                 })
 			}
 		});

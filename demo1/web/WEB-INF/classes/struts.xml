@@ -67,6 +67,12 @@
 		<action name="noticebillAction_*" class="noticebillAction" method="{1}">
 			<result name="toAdd">/WEB-INF/pages/qupai/noticebill_add.jsp</result>
 		</action>
+
+        <!--workordermanageAction-->
+        <action name="workordermanageAction_*" class="workordermanageAction" method="{1}">
+			<result name="toList">/WEB-INF/pages/qupai/quickworkorder.jsp</result>
+
+        </action>
 	</package>
 
 </struts>
