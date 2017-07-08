@@ -14,10 +14,8 @@
 						http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 	<context:component-scan base-package="*"/>
-	<tx:annotation-driven transaction-manager="transactionManager"/>
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 	<!--事务管理-->
-
-
 
 	<!--注入sessionfactory-->
 	<bean name="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
@@ -95,9 +93,11 @@
 	<bean name="bosRealm" class="com.boss.demo.shiro.BosRealm"></bean>
 
 	<!--如果要使用注解来配置shiro的话,需要先配置自动代理与切面-->
-	<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator">
+	<!--<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator">
 		<property name="proxyTargetClass" value="true"></property>
-	</bean>
+	</bean>-->
+	<!--动态代理改为下面格式,让Spring文件自己判断-->
+	<aop:aspectj-autoproxy/>
 	<!--切面-->
 	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor"></bean>
 

@@ -51,7 +51,7 @@
 		};
 		
 		$.ajax({
-			url : '${pageContext.request.contextPath}/json/menu.json',
+			url : '${pageContext.request.contextPath}/functionAction_list.action',
 			type : 'POST',
 			dataType : 'text',
 			success : function(data) {
@@ -67,7 +67,22 @@
 		
 		// 点击保存
 		$('#save').click(function(){
-			location.href='${pageContext.request.contextPath}/page_admin_privilege.action';
+		    if($("#roleForm").form("validate")){
+
+		        //在表单提交之前,需要获得所选择的节点然后拼接参数
+                var treeObj = $.fn.zTree.getZTreeObj("functionTree");//获得ztree对象
+                var nodes = treeObj.getCheckedNodes(true);//在提交表单之前将选中的checkbox收集
+                var array = new Array();
+                for(var i=0;i<nodes.length;i++){
+                    var id = nodes[i].id;
+                    array.push(id);
+                }
+                var ids = array.join(",");
+                //在提交表单之前，将ids字符串赋值给隐藏域
+                $("input[name=functionIds]").val(ids);
+		        $("#roleForm").submit();
+			}
+			//location.href='${pageContext.request.contextPath}/page_admin_privilege.action';
 		});
 	});
 </script>	
@@ -79,15 +94,16 @@
 			</div>
 		</div>
 		<div region="center" style="overflow:auto;padding:5px;" border="false">
-			<form id="roleForm" method="post">
+			<form id="roleForm" method="post" action="${pageContext.request.contextPath}/roleAction_save.action">
 				<table class="table-edit" width="80%" align="center">
 					<tr class="title">
 						<td colspan="2">角色信息</td>
 					</tr>
 					<tr>
-						<td width="200">编号</td>
+						<td width="200">关键字</td>
 						<td>
-							<input type="text" name="id" class="easyui-validatebox" data-options="required:true" />						
+							<input type="text" name="code" class="easyui-validatebox" data-options="required:true" />
+							<input type="hidden" name="functionIds">
 						</td>
 					</tr>
 					<tr>

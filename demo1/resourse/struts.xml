@@ -4,18 +4,19 @@
     "http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
 
-
-
-
 	<!--首先配置此Struts是否是模型类-->
 	<constant name="struts.devMode" value="true"></constant>
 	<!--指定Struts2框架中的action对象有Spring工厂负责创建-->
 	<constant name="struts.objectFactory" value="spring"/>
 	<!-- 注册struts2框架的国际化文件 -->
 	<constant name="struts.custom.i18n.resources" value="message"></constant>
+	
 
 	<!--配置action-->
 	<package name="basicstruts" extends="struts-default" namespace="/">
+		<!--<global-results>
+			<result name=""></result>
+		</global-results>-->
 		<!--自定义拦截器-->
 		<interceptors>
 
@@ -30,6 +31,7 @@
 		<default-interceptor-ref name="myStack"></default-interceptor-ref>
 		<global-results>
 			<result name="toLogin">/login.jsp</result>
+			<result name="unauthorized">/unauthorized.jsp</result>
 		</global-results>
 
 		<!--UserAction-->
@@ -73,6 +75,16 @@
 			<result name="toList">/WEB-INF/pages/qupai/quickworkorder.jsp</result>
 
         </action>
+
+		<!--functionAction-->
+		<action name="functionAction_*" class="functionAction" method="{1}">
+
+		</action>
+
+		<!--roleAction-->
+		<action name="roleAction_*" class="roleAction" method="{1}">
+		<result name="toList" >/WEB-INF/pages/admin/role.jsp</result>
+		</action>
 	</package>
 
 </struts>

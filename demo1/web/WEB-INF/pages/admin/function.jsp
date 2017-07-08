@@ -37,9 +37,9 @@
 					handler : function(){
 						location.href='${pageContext.request.contextPath}/page_admin_function_add.action';
 					}
-				}           
+				}
 			],
-			url : '',
+			url : '${pageContext.request.contextPath}/functionAction_findAll.action',
 			columns : [[
 			  {
 				  field : 'id',
@@ -59,7 +59,14 @@
 			  {
 				  field : 'generateMenu',
 				  title : '是否生成菜单',
-				  width : 200
+				  width : 200,
+				  formatter:function (date) {
+					  if(date=="1"){
+							return "是"
+					  }else{
+							return "否"
+					  }
+                  }
 			  },  
 			  {
 				  field : 'zindex',
@@ -71,7 +78,14 @@
 				  title : '路径',
 				  width : 200
 			  }
-			]]
+			]],
+            pageList: [10,20,30],
+            pagination : true,
+            striped : true,
+            singleSelect: true,
+            rownumbers : true,
+            fit : true // 占满容器
+
 		});
 	});
 </script>	

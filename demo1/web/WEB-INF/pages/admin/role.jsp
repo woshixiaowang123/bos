@@ -47,7 +47,7 @@
 					}
 				}           
 			],
-			url : '',
+			url : '${pageContext.request.contextPath}/roleAction_findAll.action',
 			columns : [[
 				{
 					field : 'id',
@@ -64,7 +64,13 @@
 					title : '描述',
 					width : 200
 				} 
-			]]
+			]],
+            pageList: [10,20,30],
+            pagination : true,
+            striped : true,
+            singleSelect: true,
+            rownumbers : true,
+            fit : true // 占满容器
 		});
 	});
 </script>	
