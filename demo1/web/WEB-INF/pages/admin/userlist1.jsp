@@ -1,12 +1,5 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: 隔壁老王
-  Date: 2017/7/7
-  Time: 21:47
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+         pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -35,101 +28,101 @@
             type="text/javascript"></script>
     <script type="text/javascript">
         // 工具栏
-        var toolbar = [{
-            id: 'button-view',
-            text: '查看',
-            iconCls: 'icon-search',
-            handler: doView
+        var toolbar = [ {
+            id : 'button-view',
+            text : '查看',
+            iconCls : 'icon-search',
+            handler : doView
         }, {
-            id: 'button-add',
-            text: '新增',
-            iconCls: 'icon-add',
-            handler: doAdd
+            id : 'button-add',
+            text : '新增',
+            iconCls : 'icon-add',
+            handler : doAdd
         }, {
-            id: 'button-delete',
-            text: '删除',
-            iconCls: 'icon-cancel',
-            handler: doDelete
+            id : 'button-delete',
+            text : '删除',
+            iconCls : 'icon-cancel',
+            handler : doDelete
         }];
         //定义冻结列
-        var frozenColumns = [[{
-            field: 'id',
-            checkbox: true,
-            rowspan: 2
+        var frozenColumns = [ [ {
+            field : 'id',
+            checkbox : true,
+            rowspan : 2
         }, {
-            field: 'username',
-            title: '名称',
-            width: 80,
-            rowspan: 2
-        }]];
+            field : 'username',
+            title : '名称',
+            width : 80,
+            rowspan : 2
+        } ] ];
 
 
         // 定义标题栏
-        var columns = [[{
-            field: 'gender',
-            title: '性别',
-            width: 60,
-            rowspan: 2,
-            align: 'center'
+        var columns = [ [ {
+            field : 'gender',
+            title : '性别',
+            width : 60,
+            rowspan : 2,
+            align : 'center'
         }, {
-            field: 'birthdayStr',
-            title: '生日',
-            width: 120,
-            rowspan: 2,
-            align: 'center'
+            field : 'birthdayStr',
+            title : '生日',
+            width : 120,
+            rowspan : 2,
+            align : 'center'
         }, {
-            title: '其他信息',
-            colspan: 2
+            title : '其他信息',
+            colspan : 2
         }, {
-            field: 'telephone',
-            title: '电话',
-            width: 800,
-            rowspan: 2
-        }], [{
-            field: 'station',
-            title: '单位',
-            width: 80,
-            align: 'center'
+            field : 'telephone',
+            title : '电话',
+            width : 800,
+            rowspan : 2
+        } ], [ {
+            field : 'station',
+            title : '单位',
+            width : 80,
+            align : 'center'
         }, {
-            field: 'salary',
-            title: '工资',
-            width: 80,
-            align: 'right'
-        }]];
-        $(function () {
+            field : 'salary',
+            title : '工资',
+            width : 80,
+            align : 'right'
+        } ] ];
+        $(function(){
             // 初始化 datagrid
             // 创建grid
-            $('#grid').datagrid({
-                iconCls: 'icon-forward',
-                fit: true,
-                border: false,
-                rownumbers: true,
-                striped: true,
-                toolbar: toolbar,
-                url: "${pageContext.request.contextPath}/userAction_list.action",
-                idField: 'id',
-                frozenColumns: frozenColumns,
-                columns: columns,
-                onClickRow: onClickRow,
-                onDblClickRow: doDblClickRow
+            $('#grid').datagrid( {
+                iconCls : 'icon-forward',
+                fit : true,
+                border : false,
+                rownumbers : true,
+                striped : true,
+                toolbar : toolbar,
+                url : "${pageContext.request.contextPath}/userAction_list.action",
+                idField : 'id',
+                frozenColumns : frozenColumns,
+                columns : columns,
+                onClickRow : onClickRow,
+                onDblClickRow : doDblClickRow
             });
 
-            $("body").css({visibility: "visible"});
+            $("body").css({visibility:"visible"});
 
         });
         // 双击
         function doDblClickRow(rowIndex, rowData) {
-            var items = $('#grid').datagrid('selectRow', rowIndex);
+            var items = $('#grid').datagrid('selectRow',rowIndex);
             doView();
         }
         // 单击
-        function onClickRow(rowIndex) {
+        function onClickRow(rowIndex){
 
         }
 
         function doAdd() {
             //alert("添加用户");
-            location.href = "${pageContext.request.contextPath}/page_admin_userinfo.action";
+            location.href="${pageContext.request.contextPath}/page_admin_userinfo.action";
         }
 
         function doView() {
@@ -143,7 +136,7 @@
             alert("删除用户");
             var ids = [];
             var items = $('#grid').datagrid('getSelections');
-            for (var i = 0; i < items.length; i++) {
+            for(var i=0; i<items.length; i++){
                 ids.push(items[i].id);
             }
 
@@ -155,16 +148,9 @@
 
     </script>
 </head>
-<%--<body class="easyui-layout" style="visibility:hidden;">
+<body class="easyui-layout" style="visibility:hidden;">
 <div region="center" border="false">
     <table id="grid"></table>
 </div>
-</body>--%>
-
-<body class="easyui-layout">
-<div data-options="region:'center'">
-    <table id="grid"></table>
-</div>
-111111
 </body>
 </html>

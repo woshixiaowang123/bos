@@ -1,8 +1,10 @@
 package com.boss.demo.service;
 
 import com.boss.demo.dao.UserDao;
+import com.boss.demo.domain.RoleModel;
 import com.boss.demo.domain.UserModel;
 import com.boss.demo.utils.MD5Utils;
+import com.boss.demo.utils.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,5 +43,25 @@ public class UserServiceImp implements UserService {
         password=MD5Utils.md5(password);
         System.out.println(password);
         userDao.executeNamedQuery("editPassword",password,id);
+    }
+
+    @Override
+    public void pageFind(PageBean pageBean) {
+        userDao.pageFind(pageBean);
+    }
+
+    @Override
+    public void save(UserModel model, String[] roleIds) {
+        String password = model.getPassword();
+        password=MD5Utils.md5(password);
+        model.setPassword(password);
+        userDao.save(model);
+        //然后遍历添加role属性
+        if (roleIds!=null && roleIds.length>0) {
+            for (String roleId : roleIds) {
+                RoleModel roleModel = new RoleModel(roleId);
+                model.getRoles().add(roleModel);
+            }
+        }
     }
 }

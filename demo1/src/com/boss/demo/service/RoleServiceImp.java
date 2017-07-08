@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * Created by 隔壁老王 on 2017/7/7.
  */
@@ -32,5 +34,10 @@ public class RoleServiceImp implements RoleService {
             functionModel.setId(s);
            model.getFunctions().add(functionModel);
         }
+    }
+
+    @Override
+    public List<RoleModel> findAll() {
+        return roleDao.findAll();
     }
 }

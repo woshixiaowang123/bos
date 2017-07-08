@@ -88,7 +88,8 @@
             title : '工资',
             width : 80,
             align : 'right'
-        } ] ];
+        } ] ]
+		;
         $(function(){
             // 初始化 datagrid
             // 创建grid
@@ -104,7 +105,15 @@
                 frozenColumns : frozenColumns,
                 columns : columns,
                 onClickRow : onClickRow,
-                onDblClickRow : doDblClickRow
+                onDblClickRow : doDblClickRow,
+
+
+                pageList: [10,20,30],
+                pagination : true,
+                striped : true,
+                singleSelect: true,
+                rownumbers : true,
+                fit : true // 占满容器
             });
 
             $("body").css({visibility:"visible"});

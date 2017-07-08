@@ -98,5 +98,22 @@ public class UserAction extends BaseAction<UserModel> {
         return NONE;
     }
 
+    //查询所有用户的方法
+    public String list(){
+        userService.pageFind(pageBean);
+        this.writePageBeanToJson(new String[]{"password","noticebills","roles","detachedCriteria","birthday"});
+        return NONE;
+    }
 
+    private String[] roleIds;
+
+    public void setRoleIds(String[] roleIds) {
+        this.roleIds = roleIds;
+    }
+
+    //添加用户
+    public String save(){
+        userService.save(model,roleIds);
+        return NONE;
+    }
 }

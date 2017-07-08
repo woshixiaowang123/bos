@@ -2,6 +2,7 @@ package com.boss.demo.domain;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,6 +23,16 @@ public class UserModel {
     private String remark;
     private Set<NoticebillModel> noticebills = new HashSet(0);
     private Set<RoleModel> roles = new HashSet(0);
+
+
+    public String getBirthdayStr(){
+        if (birthday!=null){
+            //将日期转化为yyyy-MM-dd格式
+            SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+            return format.format(birthday);
+        }
+        return "";
+    }
 
     public Set<NoticebillModel> getNoticebills() {
         return noticebills;

@@ -5,6 +5,8 @@ import com.boss.demo.web.BaseAction.BaseAction;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import java.util.List;
+
 /**
  * role
  * Created by 隔壁老王 on 2017/7/7.
@@ -29,5 +31,12 @@ public class RoleAction extends BaseAction<RoleModel> {
     public String save(){
         roleService.save(model,functionIds);
         return "toList";
+    }
+
+    //查询所有角色的信息
+    public String list(){
+        List<RoleModel> list= roleService.findAll();
+        this.writeListToJson(list,new String[]{"functions","users"});
+        return NONE;
     }
 }
