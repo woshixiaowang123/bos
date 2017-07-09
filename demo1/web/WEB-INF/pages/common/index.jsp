@@ -46,8 +46,9 @@
 		};
 		
 		// 基本功能菜单加载
+		//现在改为通过查询数据库,哪些用户拥有哪些权限,在通过对应的权限,生成对应的菜单
 		$.ajax({
-			url : '${pageContext.request.contextPath}/json/menu.json',
+			url : '${pageContext.request.contextPath}/functionAction_findMenu.action',
 			type : 'POST',
 			dataType : 'text',
 			success : function(data) {
@@ -175,7 +176,7 @@
 </head>
 <body class="easyui-layout">
 	<div data-options="region:'north',border:false"
-		style="height:80px;padding:10px;background:url('./images/header_bg.png') no-repeat right;">
+		style="height:80px;padding:10px;background:url('${pageContext.request.contextPath}/images/header_bg.png') no-repeat right;">
 		<div>
 			<img src="${pageContext.request.contextPath }/images/logo.png"
 				border="0">
@@ -235,7 +236,7 @@
 							传智播客 | Powered by <a href="http://www.itcast.cn/">itcast.cn</a>
 						</div>
 					</td>
-					<td style="width: *;" class="co1"><span id="online"
+					<td style="width:*;" class="co1"><span id="online"
 						style="background: url(${pageContext.request.contextPath }/images/online.png) no-repeat left;padding-left:18px;margin-left:3px;font-size:8pt;color:#005590;">在线人数:1</span>
 					</td>
 				</tr>

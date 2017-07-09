@@ -1,6 +1,7 @@
 package com.boss.demo.web;
 
 import com.boss.demo.domain.FunctionModel;
+import com.boss.demo.utils.BosGetSession;
 import com.boss.demo.web.BaseAction.BaseAction;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -28,6 +29,15 @@ public class FunctionAction extends BaseAction<FunctionModel> {
 
         List<FunctionModel> all = functionService.findAll();
         this.writeListToJson(all,new String[]{"parentFunction","children","roles"});
+
+        return NONE;
+    }
+
+    //查询当前登录用户的权限
+    public String findMenu(){
+
+        List<FunctionModel> list=functionService.finMenu(BosGetSession.getLoginUser());
+        this.writeListToJson(list,new String[]{"parentFunctionModel","children","roles"});
 
         return NONE;
     }
