@@ -4,7 +4,9 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.boss.demo.dao.FunctionDao;
 import com.boss.demo.dao.UserDao;
+import com.boss.demo.domain.FunctionModel;
 import com.boss.demo.domain.UserModel;
 import com.boss.demo.service.UserService;
 import org.apache.shiro.authc.AuthenticationException;
@@ -26,8 +28,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class BosRealm extends AuthorizingRealm {
     @Autowired
     private UserService userService;
+    
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private FunctionDao functionDao;
+
+
     private PrincipalCollection principals;
 
 
@@ -63,8 +71,24 @@ public class BosRealm extends AuthorizingRealm {
 
         //授权信息对象
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        //首先获取登录人信息
+       UserModel userModel= (UserModel) principals.getPrimaryPrincipal();
+       //判断登录人是否是admin超级管理员,如果是就给予最大权限
+        if ("admin".equals(userModel.getUsername())){
+            List<FunctionModel> all = functionDao.findAll();
+            for (FunctionModel functionModel : all) {
+                info.addStringPermission(functionModel.getCode());
+            }
+        }else {
+            //普通用户,动态的赋予权限
+            List<FunctionModel> list=functionDao.findByUserId(userModel.getId());
+            for (FunctionModel functionModel : list) {
+                System.out.println(functionModel.getCode()+"-----------");
+                info.addStringPermission(functionModel.getCode());
 
-        info.addStringPermission("staff");
+            }
+        }
+        //info.addStringPermission("staff");
         return info;
     }
 }

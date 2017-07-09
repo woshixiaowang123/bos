@@ -114,6 +114,6 @@ public class UserAction extends BaseAction<UserModel> {
     //添加用户
     public String save(){
         userService.save(model,roleIds);
-        return NONE;
+        return "toList";
     }
 }

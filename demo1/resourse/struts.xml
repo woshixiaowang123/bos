@@ -38,6 +38,7 @@
 		<action name="userAction_*" class="userAction" method="{1}">
 			<result name="toLogin">/login.jsp</result>
 			<result name="home">/WEB-INF/pages/common/index.jsp</result>
+			<result name="toList">/WEB-INF/pages/admin/userlist.jsp</result>
 
 		</action>
 

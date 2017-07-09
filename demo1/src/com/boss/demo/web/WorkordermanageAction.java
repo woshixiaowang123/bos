@@ -2,6 +2,7 @@ package com.boss.demo.web;
 
 import com.boss.demo.domain.WorkordermanageModel;
 import com.boss.demo.web.BaseAction.BaseAction;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -30,6 +31,7 @@ public class WorkordermanageAction extends BaseAction<WorkordermanageModel> {
     }
 
     //查询所有的工作单的方法,分页
+    //@RequiresPermissions("staff")
     public String findAll(){
         workordermanageService.pageFind(pageBean);
         this.writePageBeanToJson(new String[]{"detachedCriteria"});
